@@ -9,7 +9,7 @@ def cls():
 
 # creating variable with strings    
 def strings(i,j):
-    txt=[]
+    txt = []
     for k in range(i,j): txt.append(chr(k))
 
     return("".join(txt))
@@ -23,56 +23,53 @@ class GuiProgram(Ui_Dialog):
 		self.setupUi(dialog)
 		
 		dialog.setWindowTitle("Password generator by Griba")
-		
+
 		self.checkBox_1.setText(strings(65,65+26)) # string.ascii_letters
-		self.checkBox_2.setText(strings(97,97+26))
+		self.checkBox_2.setText(strings(97,97+26)) # string.ascii_letters
 		self.checkBox_3.setText(strings(48,48+10)) # string.digits
-		self.checkBox_4.setText(strings(33,33+15))
-		self.checkBox_5.setText(strings(58,58+7))
+		self.checkBox_4.setText(strings(33,33+15)) # string.punctuation
+		self.checkBox_5.setText(strings(58,58+7)) # string.punctuation
 		
-		# self.checkBox_1.setEnabled(0)
-		# self.checkBox_1.setChecked(1)
-		self.lineEdit.setText("8")
+		self.lineEdit_1.setText("8")
 		self.lineEdit_2.setText("5")
-		self.pushButton_3.setEnabled(0)
-		self.pushButton_4.setEnabled(0)
 		
-		self.pushButton.clicked.connect(self.generate)
+		self.pushButton_1.clicked.connect(self.generate)
 		self.pushButton_3.clicked.connect(self.txtbr_cls)
 		self.pushButton_4.clicked.connect(self.copy)
 
-		self.lineEdit.textEdited.connect(self.edit_colors)
+		self.lineEdit_1.textEdited.connect(self.edit_colors)
 		self.lineEdit_2.textEdited.connect(self.edit_colors)
 
-		self.checkBox_1.stateChanged.connect(self.check)
-		self.checkBox_2.stateChanged.connect(self.check)
-		self.checkBox_3.stateChanged.connect(self.check)
-		self.checkBox_4.stateChanged.connect(self.check)
-		self.checkBox_5.stateChanged.connect(self.check)
+		#checkBox_1.stateChanged.connect(self.check)
+		for i in range(1,6): getattr(self, "checkBox_"+str(i)).stateChanged.connect(self.check)
 
 # setting white color for line edits
 	def edit_colors(self):
-		#self.lineEdit.setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(255, 0, 0);")
-		self.lineEdit.setStyleSheet("background-color: rgb(255, 255, 255);")
+		#self.lineEdit_1.setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(255, 0, 0);")
+		self.lineEdit_1.setStyleSheet("background-color: rgb(255, 255, 255);")
 		self.lineEdit_2.setStyleSheet("background-color: rgb(255, 255, 255);")
 
 # handling error message
 	def err_msg(self,msg):
 		dialog.setEnabled(0)
 
-		if msg==0:
-			self.lineEdit.setStyleSheet("background-color: rgb(255, 0, 0);")
+		if msg == 0:
+			self.lineEdit_1.setStyleSheet("background-color: rgb(255, 0, 0);")
 			self.lineEdit_2.setStyleSheet("background-color: rgb(240, 240, 240);")
+
 			ctypes.windll.user32.MessageBoxW(0, "Invalid password length!", "Error", 0)
+
 			self.lineEdit_2.setStyleSheet("background-color: rgb(255, 255, 255);")
 			dialog.setEnabled(1)
-			#self.lineEdit.clear()
-			self.lineEdit.setFocus()
+			#self.lineEdit_1.clear()
+			self.lineEdit_1.setFocus()
 		else:
 			self.lineEdit_2.setStyleSheet("background-color: rgb(255, 0, 0);")
-			self.lineEdit.setStyleSheet("background-color: rgb(240, 240, 240);")
+			self.lineEdit_1.setStyleSheet("background-color: rgb(240, 240, 240);")
+
 			ctypes.windll.user32.MessageBoxW(0, "Incorrect number of passwords to be generated!", "Error", 0)
-			self.lineEdit.setStyleSheet("background-color: rgb(255, 255, 255);")
+
+			self.lineEdit_1.setStyleSheet("background-color: rgb(255, 255, 255);")
 			dialog.setEnabled(1)
 			#self.lineEdit_2.clear()
 			self.lineEdit_2.setFocus()
@@ -81,64 +78,62 @@ class GuiProgram(Ui_Dialog):
 	def txtbr_cls(self):
 		self.textBrowser.clear()
 		self.pushButton_3.setEnabled(0)
-		self.pushButton_4.setEnabled(0)      
+		self.pushButton_4.setEnabled(0)
+		self.lineEdit_1.setFocus()
 
 # copying text browser
 	def copy(self):
 		self.textBrowser.selectAll()
 		self.textBrowser.copy()
 		dialog.setEnabled(0)
+		self.lineEdit_1.setStyleSheet("background-color: rgb(240, 240, 240);")
+		self.lineEdit_2.setStyleSheet("background-color: rgb(240, 240, 240);")
+
 		ctypes.windll.user32.MessageBoxW(0, "Data copied to clipboard.", "Information", 0)
-		dialog.setEnabled(1)
+
+		self.lineEdit_1.setStyleSheet("background-color: rgb(255, 255, 255);")
+		self.lineEdit_2.setStyleSheet("background-color: rgb(255, 255, 255);")
+
 		self.textBrowser.clear()
 		self.pushButton_3.setEnabled(0)
 		self.pushButton_4.setEnabled(0)
-		self.lineEdit.setFocus()
+		dialog.setEnabled(1)
+		#self.lineEdit_1.setFocus()
 
 # checking how many check box is checked
 	def check(self):
-		self.checkBox_1.setEnabled(1)
-		self.checkBox_2.setEnabled(1)
-		self.checkBox_3.setEnabled(1)
-		self.checkBox_4.setEnabled(1)
-		self.checkBox_5.setEnabled(1)
+		#self.checkBox_1.setEnabled(1)
+		for i in range (1,6): getattr(self, "checkBox_"+str(i)).setEnabled(1)
 
-		chb=[]
-		chb.append(self.checkBox_1.isChecked())
-		chb.append(self.checkBox_2.isChecked())
-		chb.append(self.checkBox_3.isChecked())
-		chb.append(self.checkBox_4.isChecked())
-		chb.append(self.checkBox_5.isChecked())
-		
-		st=0
+		chb = []
+		#chb.append(self.checkBox_1.isChecked())
+		for i in range (1,6): chb.append(getattr(self, "checkBox_"+str(i)).isChecked())
+
+		st = 0
 		for i in range(5):
 			if chb[i]: st=st+1
 
-		if st<2:
-			if chb[0]: self.checkBox_1.setEnabled(0)
-			if chb[1]: self.checkBox_2.setEnabled(0)
-			if chb[2]: self.checkBox_3.setEnabled(0)
-			if chb[3]: self.checkBox_4.setEnabled(0)
-			if chb[4]: self.checkBox_5.setEnabled(0)
+		if st < 2:
+			for i in range (1,6):
+				#if chb[0]: self.checkBox_1.setEnabled(0)
+				if chb[i-1]: getattr(self, "checkBox_" + str(i)).setEnabled(0)
 
 # generating password         
 	def passw_f(self,passlen):
-		p=[]
+		p = []
 		while len(p)<passlen:
-			i=random.randint(0,4)
-			if i==0 and self.checkBox_1.isChecked(): p.append(i) 
-			if i==1 and self.checkBox_2.isChecked(): p.append(i) 
-			if i==2 and self.checkBox_3.isChecked(): p.append(i) 
-			if i==3 and self.checkBox_4.isChecked(): p.append(i) 
-			if i==4 and self.checkBox_5.isChecked(): p.append(i)
+			i = random.randint(0,5) # 5
+			for j in range (0,5):
+				#self.chceckBox_1.isChecked()                            
+				if i == j and getattr(self, "checkBox_" + str(j+1)).isChecked(): p.append(i)
 
-		passw=[]
+		passw = []
 		for i in p:
-			if i==0: passw.append(chr(random.randint(65,65+25)))
-			if i==1: passw.append(chr(random.randint(97,97+25)))
-			if i==2: passw.append(chr(random.randint(48,48+9)))
-			if i==3: passw.append(chr(random.randint(33,33+14)))
-			if i==4: passw.append(chr(random.randint(58,58+6)))
+			if i == 0: passw.append(chr(random.randint(65,65+25)))
+			if i == 1: passw.append(chr(random.randint(97,97+25)))
+			if i == 2: passw.append(chr(random.randint(48,48+9)))
+			if i == 3: passw.append(chr(random.randint(33,33+14)))
+			if i == 4: passw.append(chr(random.randint(58,58+6)))
 
 		return("".join(passw))
 
@@ -146,15 +141,15 @@ class GuiProgram(Ui_Dialog):
 	def chk_str(self,txt):
 		for i in txt:
 			if i not in string.digits: # string.dgits = "0123456789"
-				txt=""
+				txt = ""
 				break
 
-		if txt=="": txt="0"
+		if txt == "": txt = "0"
 		return(txt)
 
 # controlling for passwords generator
 	def generate(self):
-		lntxt=self.chk_str(self.lineEdit.text())
+		lntxt=self.chk_str(self.lineEdit_1.text())
 		howm=self.chk_str(self.lineEdit_2.text())
 
 		if (int(lntxt) in range(4,33)):
