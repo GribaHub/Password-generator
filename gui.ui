@@ -16,7 +16,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="label_1">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -29,7 +29,7 @@
     <string>Password length (4-32)</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="lineEdit_1">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -65,7 +65,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="pushButton_1">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -240,11 +240,11 @@
    </property>
   </widget>
   <zorder>groupBox</zorder>
-  <zorder>label</zorder>
-  <zorder>lineEdit</zorder>
+  <zorder>label_1</zorder>
+  <zorder>lineEdit_1</zorder>
   <zorder>label_2</zorder>
   <zorder>textBrowser</zorder>
-  <zorder>pushButton</zorder>
+  <zorder>pushButton_1</zorder>
   <zorder>pushButton_2</zorder>
   <zorder>checkBox_1</zorder>
   <zorder>checkBox_2</zorder>
@@ -257,9 +257,9 @@
   <zorder>pushButton_4</zorder>
  </widget>
  <tabstops>
-  <tabstop>lineEdit</tabstop>
+  <tabstop>lineEdit_1</tabstop>
   <tabstop>lineEdit_2</tabstop>
-  <tabstop>pushButton</tabstop>
+  <tabstop>pushButton_1</tabstop>
   <tabstop>pushButton_4</tabstop>
   <tabstop>pushButton_3</tabstop>
   <tabstop>pushButton_2</tabstop>
